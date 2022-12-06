@@ -27,6 +27,9 @@ def generate_html(parse_tree):
             # Add the closing angle bracket
             element_code += '>'
 
+            # Add content, if present
+            if node['children']:
+                element_code += node['content']
             # Add the children, if present
             if node['children']:
                 element_code += generate_html(node['children'])
