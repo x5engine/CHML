@@ -2,7 +2,7 @@ import re
 
 # Define the CHML syntax and semantics
 
-CHML_ELEMENT_RE = re.compile(r'([a-zA-Z0-9]+)(#[a-zA-Z0-9-]+)?(\.[a-zA-Z0-9-]+)*:')
+CHML_ELEMENT_RE = re.compile(r'([a-zA-Z0-9]+)(#[a-zA-Z0-9-]+)?(\.[a-zA-Z0-9-]+)*:([^/:]*)')
 CHML_ATTRIBUTE_RE = re.compile(r'([a-zA-Z0-9-]+): ([^/:]+)')
 CHML_CLOSING_RE = re.compile(r'/:')
 
@@ -25,7 +25,8 @@ def parse_chml(chml_code):
             element_name = element_match.group(1)
             element_id = element_match.group(2)[1:] if element_match.group(2) else None
             element_classes = element_match.group(3)[1:].split('.') if element_match.group(3) else []
-
+            element_content = element_match.group(4)
+            
             # Create a new element node
             node = {
                 'type': 'element',
@@ -33,6 +34,7 @@ def parse_chml(chml_code):
                 'id': element_id,
                 'classes': element_classes,
                 'attributes': {},
+                'content': element_content,
                 'children': []
             }
 
@@ -65,7 +67,6 @@ def parse_chml(chml_code):
         if closing_match:
             # Decrement the indent level
             indent_level -= 1
-
     return tree
 
 # Define the code generator for CH
