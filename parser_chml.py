@@ -36,11 +36,16 @@ def parse_chml(chml_code):
                 'children': []
             }
 
+            # print(tree)
+
             # Add the node to the parse tree
             if indent_level == 0:
                 tree.append(node)
             else:
-                tree[-1]['children'][-1]['children'].append(node)
+                if len(tree[-1]['children']) == 0:
+                    tree[-1]['children'].append(node)
+                else:
+                    tree[-1]['children'][-1]['children'].append(node)
 
             # Increment the indent level
             indent_level += 1

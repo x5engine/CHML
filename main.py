@@ -1,5 +1,5 @@
 from parser_chml import parse_chml
-from generator_chml import generate_py
+from generator_chml import generate_html
 # Define the compiler for CHML
 
 def compile_chml(chml_code):
@@ -7,7 +7,7 @@ def compile_chml(chml_code):
     parse_tree = parse_chml(chml_code)
 
     # Generate the Python code
-    py_code = generate_py(parse_tree)
+    py_code = generate_html(parse_tree)
 
     return py_code
 
